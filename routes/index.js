@@ -1,11 +1,13 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express'),
+    http = require("http"),
+    weather = require("../config/weather.api");
+    router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.json({
-      success: true,
-      data: "weather"
+
+  weather.sendRequest(3204186, function (body) {
+      res.json({success: true, data: JSON.parse(body)})
   });
 });
 
