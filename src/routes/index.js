@@ -1,8 +1,9 @@
 const express = require('express'),
-    weatherController = require("../weather/controller");
+    weatherController = require("../weather/controller"),
+    geolocatorController = require("../geolocator/controller"),
     router = express.Router();
 
-/* GET home page. */
 router.get('/forecast', weatherController.forecast);
+router.get('/geolocator', geolocatorController.locator);
 
 module.exports = router;
