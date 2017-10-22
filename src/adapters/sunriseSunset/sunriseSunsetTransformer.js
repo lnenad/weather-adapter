@@ -4,6 +4,14 @@ const transformer = function (input) {
         sunrise = new Date(today + results.sunrise + " GMT+0000"),
         sunset = new Date(today + results.sunset + " GMT+0000");
 
+    if (isNaN(sunrise.getTime()) || isNaN(sunset.getTime())) {
+        console.log("Unable to parse service response", JSON.stringify(input));
+
+        return {
+            error: "Unable to parse service response"
+        }
+    }
+
     return {
         sunrise: {
             timestamp: Math.round(sunrise.getTime() / 1000),

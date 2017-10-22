@@ -18,7 +18,7 @@ const googleGeolocator = require("../adapters/google/google.api"),
  */
 const locator = function (req, res, next) {
     // Round to 2 decimal places to improve cache hits
-    const location = req.query.city ? req.query.city : null;
+    const location = req.query.location ? req.query.location : null;
 
     if (!location) {
         return res.json({
@@ -33,7 +33,7 @@ const locator = function (req, res, next) {
         const result = geoTransformer(body);
 
         res.json({
-            success: !!result.data.location,
+            success: !result.error,
             data: result
         });
     });

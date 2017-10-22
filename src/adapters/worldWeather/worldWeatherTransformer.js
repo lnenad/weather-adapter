@@ -3,8 +3,16 @@ const transformer = function (input) {
 
     return weather.map(function (item) {
         return {
-            precipMM: item.hourly.map(function (hourly) {
-                return hourly.precipMM
+            data: item.hourly.map(function (hourly) {
+                return {
+                    precipitationMM: hourly.precipMM,
+                    weather: {
+                        description: hourly.weatherDesc[0].value,
+                        icon: {
+                            url: hourly.weatherIconUrl[0].value
+                        }
+                    }
+                }
             })
         }
     })

@@ -40,7 +40,7 @@ To get weather data for the next 26 hours in 3 hour increments use
 | URL | METHOD | QUERY PARAMS |
 |-----|--------|--------------|
 |/forecast  | GET | lat, long|
-|/geolocator | GET | city |
+|/geolocator | GET | location |
 
 
 ```
