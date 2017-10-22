@@ -18,6 +18,10 @@ If I have the time to write tests they will be run using ```npm test```
 
 ## API
 
+### Full documentation
+
+Documentation is located at: http://docs.adiweather.apiary.io/
+
 ### Format
 
 Status codes are used in the following manner. For standard GET requests a successful resolution returns a status code
