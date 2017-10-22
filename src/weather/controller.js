@@ -24,10 +24,29 @@ const openWeather = require("../adapters/openWeather/openWeather.api"),
 const forecast = function (req, res) {
     // Round to 2 decimal places to improve cache hits
     const lat = req.query.lat ? parseFloat(req.query.lat).toFixed(2) : null,
-        long = req.query.long ? parseFloat(req.query.long).toFixed(2) : null;
+        long = req.query.long ? parseFloat(req.query.long).toFixed(2) : null,
+        forceRefresh = req.query.refresh ? req.query.refresh : false;
+
+    if (lat < -90 || lat > 90) {
+        return res.status(400).json({
+            status: false,
+            data: {
+                error: "Invalid latitude value."
+            }
+        })
+    }
+
+    if (long < -180 || long > 180) {
+        return res.status(400).json({
+            status: false,
+            data: {
+                error: "Invalid longitude value."
+            }
+        })
+    }
 
     if (lat === null || long === null) {
-        return res.json({
+        return res.status(400).json({
             status: false,
             data: {
                 error: "Missing latitude or longitude parameter in request."
@@ -54,7 +73,7 @@ const forecast = function (req, res) {
 
         const cached = documents[0] ? documents[0] : null, currentTimestamp = Math.round(Date.now() / 1000);
 
-        if (cached && (currentTimestamp - cached.timestamp) < cacheValid) {
+        if (cached && (currentTimestamp - cached.timestamp) < cacheValid && !forceRefresh) {
             delete cached._id;
 
             return res.json({

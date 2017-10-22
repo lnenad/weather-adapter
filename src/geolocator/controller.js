@@ -30,9 +30,9 @@ const locator = function (req, res, next) {
     }
 
     googleGeolocator.sendRequest(location, function (body) {
-        const result = geoTransformer(body);
+        const result = geoTransformer(body), status = !result.error ? 200 : 400;
 
-        res.json({
+        res.status(status).json({
             success: !result.error,
             data: result
         });

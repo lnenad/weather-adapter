@@ -4,7 +4,7 @@ Node.js adapter used to convert api.openweathermap data to a more readable forma
 
 ## Getting Started
 
-Project is hosted on: http://some-digital-ocean-instance-url
+Project is currently hosted on: http://37.139.28.96:3000/
 
 ## Installing
 
@@ -35,20 +35,33 @@ Where status indicates if the request was successful and data property contains 
 
 ### Supported endpoints
 
-To get weather data for the next 26 hours in 3 hour increments use
+To get weather data for the next 5 days in 3 hour increments use the /forecast endpoint.
+To get geolocation for the given location use the /geolocator endpoint.
 
 | URL | METHOD | QUERY PARAMS |
 |-----|--------|--------------|
-|/forecast  | GET | lat, long|
+|/forecast  | GET | lat, long, refresh|
 |/geolocator | GET | location |
 
+For the forecast endpoint results are cached for 3 hours after the last data fetch. To force
+a cache reload pass the refresh=true query parameter.
 
+### Example requests
+
+/forecast
 ```
-GET /forecast?lat=43.3&long=23.3 HTTP/1.1
-Host: host.com/
+GET /forecast?lat=43.3&long=23.3&refresh=true HTTP/1.1
+Host: 37.139.28.96:3000/
 Accept: application/json
 Accept-Encoding: gzip, deflate
+```
 
+/geolocator
+```
+GET /geolocator?location=Nuremberg HTTP/1.1
+Host: 37.139.28.96:3000/
+Accept: application/json
+Accept-Encoding: gzip, deflate
 ```
 
 ## Authors
