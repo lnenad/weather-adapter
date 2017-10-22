@@ -20,7 +20,6 @@ const openWeather = require("../adapters/openWeather/openWeather.api"),
  *
  * @param req
  * @param res
- * @param next
  */
 const forecast = function (req, res) {
     // Round to 2 decimal places to improve cache hits
@@ -54,11 +53,12 @@ const forecast = function (req, res) {
         }
 
         const cached = documents[0] ? documents[0] : null, currentTimestamp = Math.round(Date.now() / 1000);
+        console.log("Cache time: ", (currentTimestamp - cached.timestamp));
 
         if (cached && (currentTimestamp - cached.timestamp) < cacheValid) {
             delete cached._id;
 
-            return res.status(304).json({
+            return res.json({
                 success: true,
                 data: cached
             });
@@ -102,7 +102,7 @@ const forecast = function (req, res) {
                         hourlyForecast: hourlyData
                     }, saveData = Object.assign({}, returnData, {timestamp: Math.round(Date.now() / 1000)});
 
-                    mongoDB.save(saveData, function (result, err) {
+                    mongoDB.createOrUpdate(saveData, cached, function (result, err) {
                         if (err) {
                             return res.json({
                                 success: false,
@@ -116,7 +116,6 @@ const forecast = function (req, res) {
                             success: true,
                             data: returnData
                         });
-                        console.log("Completed", result);
                     });
 
 

@@ -60,7 +60,7 @@ function get(data, cb) {
  * @param data
  * @param cb
  */
-function save(data, cb) {
+function createOrUpdate(data, cache, cb) {
     if (!data) {
         throw new Error("No data defined");
     }
@@ -71,13 +71,23 @@ function save(data, cb) {
         throw new Error("No database connection has been established")
     }
 
-    db.collection(collectionName).insertOne(data, function(err, r) {
-        if (err) {
-            return cb(null, err)
-        }
+    if (cache && cache["_id"]) {
+        db.collection(collectionName).updateOne({_id: cache["_id"]}, {$set: data}, {upsert: true}, function (err, r) {
+            if (err) {
+                return cb(null, err)
+            }
 
-        return cb(r);
-    });
+            return cb(r);
+        });
+    } else {
+        db.collection(collectionName).insertOne(data, function (err, r) {
+            if (err) {
+                return cb(null, err)
+            }
+
+            return cb(r);
+        });
+    }
 }
 
 /**
@@ -94,7 +104,7 @@ function close() {
 module.exports = {
     db: db,
     get: get,
-    save: save,
+    createOrUpdate: createOrUpdate,
     connect: connect,
     close: close
 };
