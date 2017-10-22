@@ -12,6 +12,15 @@ Ensure Node and NPM are installed and run ```npm install``` to install all depen
 
 Run ```npm start``` to start a local instance. Ensure mongodb is installed and configured on port 27017.
 
+## Project source directory structure
+```
+.src
+|-- adapters     //Contains adapters and response transformers for different API's
+|-- database     //A simple mongodb wrapper
+|-- geolocator   //Contains the geolocator controller
+|-- routes       //Contains the routes file
+|-- weather      //Contains the weather forecast controller
+```
 ## Running the tests
 
 If I have the time to write tests they will be run using ```npm test```
