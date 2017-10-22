@@ -21,7 +21,7 @@ const locator = function (req, res, next) {
     const location = req.query.location ? req.query.location : null;
 
     if (!location) {
-        return res.json({
+        return res.status(400).json({
             status: false,
             data: {
                 error: "Missing location parameter in request."
