@@ -1,5 +1,5 @@
 {
-  "name": "adi-weather-adapter",
+  "name": "adi-weather-api",
   "version": "0.1.0",
   "private": true,
   "scripts": {
