@@ -90,3 +90,4 @@ This project is licensed under the MIT License
 * OpenWeatherMap API - http://api.openweathermap.org
 * WorldWeatherOnline API - http://developer.worldweatheronline.com
 * Sunrise Sunset API - https://sunrise-sunset.org
+* Google geolocation API - https://developers.google.com/
