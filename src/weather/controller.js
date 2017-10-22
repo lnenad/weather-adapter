@@ -53,7 +53,6 @@ const forecast = function (req, res) {
         }
 
         const cached = documents[0] ? documents[0] : null, currentTimestamp = Math.round(Date.now() / 1000);
-        console.log("Cache time: ", (currentTimestamp - cached.timestamp));
 
         if (cached && (currentTimestamp - cached.timestamp) < cacheValid) {
             delete cached._id;
