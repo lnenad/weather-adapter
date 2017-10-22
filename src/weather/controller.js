@@ -27,7 +27,7 @@ const forecast = function (req, res) {
         long = req.query.long ? parseFloat(req.query.long).toFixed(2) : null,
         forceRefresh = req.query.refresh ? req.query.refresh : false;
 
-    if (lat < -90 || lat > 90) {
+    if (lat < -90 || lat > 90 || isNaN(lat)) {
         return res.status(400).json({
             status: false,
             data: {
@@ -36,7 +36,7 @@ const forecast = function (req, res) {
         })
     }
 
-    if (long < -180 || long > 180) {
+    if (long < -180 || long > 180 || isNaN(long)) {
         return res.status(400).json({
             status: false,
             data: {
